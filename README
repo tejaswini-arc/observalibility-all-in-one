@@ -1,0 +1,27 @@
+# AIOps Demo Application
+
+Production-like Spring Boot application designed for
+observability and AIOps experimentation.
+
+## Endpoints
+
+GET /api/orders
+GET /api/orders/{id}
+
+## Failure scenarios
+
+GET /api/orders/high-latency
+GET /api/orders/error
+GET /api/orders/database-error
+
+## Observability roadmap
+
+Spring Boot
+→ OpenTelemetry
+→ Prometheus
+→ Grafana
+→ Elastic
+→ PagerDuty
+→ RunDeck
+→ Kubernetes
+→ GenAI
