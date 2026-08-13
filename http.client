@@ -1,0 +1,28 @@
+// Endpoints to be run
+
+1.Test the normal application       http://localhost:8080/api/orders
+
+2. Test your first incident         http://localhost:8080/api/orders/high-latency
+
+3. Create an error incident         http://localhost:8080/api/orders/error
+
+Incident #1
+High latency
+
+Incident #2
+HTTP 500
+
+4. Create a simulated DB incident       http://localhost:8080/api/orders/database-error
+
+5. http://localhost:8080/actuator/prometheus
+
+Eventually we'll make the observability system tell us:
+
+Service: observalibility
+
+Error rate: ↑
+Latency: ↑
+Affected endpoint: /api/orders/database-error
+Trace: xyz123
+Exception: RuntimeException
+
