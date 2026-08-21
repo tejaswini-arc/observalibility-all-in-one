@@ -15,6 +15,7 @@ public class OrderService {
                 new Order(2L, "Customer-B", "PROCESSING"),
                 new Order(3L, "Customer-C", "COMPLETED")
         );
+
     }
 
     public Order getOrder(Long id) {
@@ -24,7 +25,7 @@ public class OrderService {
 
     public String highLatency() throws InterruptedException {
 
-        Thread.sleep(5000);
+        Thread.sleep(9000);
 
         return "Response after 5 seconds";
     }

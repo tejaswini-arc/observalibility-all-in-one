@@ -1,0 +1,20 @@
+services:
+  grafana-lgtm:
+    image: 'grafana/otel-lgtm:latest'
+    ports:
+      - '3000:3000'
+      - '4317'
+      - '4318'
+    environment:
+      GF_SMTP_ENABLED: "true"
+      GF_SMTP_HOST: "smtp.gmail.com:587"
+      GF_SMTP_USER: "${GRAFANA_SMTP_USER}"
+      GF_SMTP_PASSWORD: "${GRAFANA_SMTP_PASSWORD}"
+      GF_SMTP_FROM_ADDRESS: "${GRAFANA_SMTP_USER}"
+      GF_SMTP_FROM_NAME: "Grafana Observability"
+      GF_SMTP_SKIP_VERIFY: "false"
+      GF_SMTP_EHLO_IDENTITY: "localhost"
+    volumes:
+        - lgtm-data:/data
+volumes:
+        lgtm-data:

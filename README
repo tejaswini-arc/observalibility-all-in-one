@@ -25,3 +25,61 @@ Spring Boot
 → RunDeck
 → Kubernetes
 → GenAI
+
+After creating docker image with help of dockerfile
+
+-> image gets created in your local
+-> then  run the image in the container
+-> docker run -p 8080:8080 aiops-demo:1.0
+
+These are steps to manually start docker and create/spin container and
+there is also another way in our springboot app we have compose.yaml file that will automatically create a container
+when we hit run the springboot -app everytime
+
+Steps for setting Grafana Email Alert to your email using google/gmail
+
+step1 : Go to https://myaccount.google.com/apppasswords
+
+step2 : Google says App Passwords require 2-Step Verification - make it ON first
+
+step3 : new App Password ->
+        Name it:    Grafana-LGTM (anyname)
+        Copy the 16-character password.Don't put spaces in the App Password
+step4: docker stop lgtm  docker rm lgtm
+give in your docker container setting like below
+
+docker run -d `
+  --name lgtm `
+  -p 3000:3000 `
+  -p 4317:4317 `
+  -p 4318:4318 `
+  -v "${PWD}\lgtm-data-backup:/data" `
+  -e "GF_SMTP_ENABLED=true" `
+  -e "GF_SMTP_HOST=smtp.gmail.com:587" `
+  -e "GF_SMTP_USER=YOUR_EMAIL@gmail.com" `
+  -e "GF_SMTP_PASSWORD=YOUR_16_CHAR_APP_PASSWORD" `
+  -e "GF_SMTP_FROM_ADDRESS=YOUR_EMAIL@gmail.com" `
+  -e "GF_SMTP_FROM_NAME=Grafana Observability" `
+  -e "GF_SMTP_SKIP_VERIFY=false" `
+  -e "GF_SMTP_EHLO_IDENTITY=localhost" `
+  grafana/otel-lgtm:latest
+
+
+step5: Verify Docker received it
+
+docker exec lgtm sh -c 'echo "USER=$GF_SMTP_USER"; echo "PASSWORD_LENGTH=${#GF_SMTP_PASSWORD}"; echo "HOST=$GF_SMTP_HOST"'
+
+
+USER=yourgmail@gmail.com
+PASSWORD_LENGTH=16
+HOST=smtp.gmail.com:587
+
+
+step 6: Test Grafana
+
+Open:
+
+http://localhost:3000
+Go to:   Alerting → Contact points
+Then:    Your email contact point → Test
+Click:    Send test notification
